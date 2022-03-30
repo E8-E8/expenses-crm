@@ -4,6 +4,7 @@ import {
   faChartLine,
   faDollar,
   faMoneyBillTransfer,
+  faMoneyBillTrendUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -39,7 +40,7 @@ function SideBar() {
             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
               <a className="nav-link" href="/incomes">
                 <i className="m-1">
-                  <FontAwesomeIcon icon={faDollar} />
+                  <FontAwesomeIcon icon={faMoneyBillTrendUp} />
                 </i>
                 incomes
               </a>
