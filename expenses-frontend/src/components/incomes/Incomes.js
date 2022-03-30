@@ -8,6 +8,8 @@ import "../../css/crm.css";
 import "../../css/display.css";
 import { useNavigate } from "react-router-dom";
 import api from "../../http/axios";
+import Pagination from "../menu/Pagination";
+import { Row, Col } from "react-bootstrap";
 
 function Incomes() {
   const navigate = useNavigate();
@@ -19,6 +21,9 @@ function Incomes() {
   const [balance, setBalance] = useState(0);
   const [sortByDate, setSortByDate] = useState("-createdAt");
   const [search, setSearch] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [incomesNumber, setIncomesNumber] = useState();
+  const [itemsPerPage, setPerPage] = useState(10);
 
   useEffect(() => {
     if (!jwt) {
@@ -26,15 +31,24 @@ function Incomes() {
       navigate("/login");
     } else {
       api
-        .get(`/incomes?sort=${sortByDate}&name=${search}`, {
-          headers: { Authorization: "Bearer " + jwt },
-        })
+        .get(
+          `/incomes?sort=${sortByDate}&name=${search}&page=${pageNumber}&limit=${itemsPerPage}`,
+          {
+            headers: { Authorization: "Bearer " + jwt },
+          }
+        )
         .then((res) => {
           setIncomes(res.data.incomes);
           setBalance(res.data.currentBalance);
+          setIncomesNumber(res.data.count);
         });
     }
-  }, [refresh, sortByDate, search]);
+  }, [refresh, sortByDate, search, pageNumber]);
+
+  function changePageNumber(pageNumber) {
+    //used for the pagination
+    setPageNumber(pageNumber);
+  }
 
   function changeSearch(newSearch) {
     setSearch(newSearch);
@@ -79,7 +93,19 @@ function Incomes() {
                 lessRecent={lessRecent}
                 mostRecent={mostRecent}
               />
-              <InfoBar SectionName="Incomes" />
+              <Row>
+                <Col>
+                  <InfoBar SectionName="Incomes" />
+                </Col>
+                <Col className="mt-3">
+                  <Pagination
+                    changePageNumber={changePageNumber}
+                    itemsNumber={incomesNumber}
+                    itemsPerPage={itemsPerPage}
+                  />
+                </Col>
+              </Row>
+
               <div className="table-responsive">
                 <table className="table table-striped">
                   <thead>

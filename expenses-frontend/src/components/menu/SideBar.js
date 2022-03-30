@@ -1,8 +1,7 @@
 import react, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHome,
-  faRightFromBracket,
+  faChartLine,
   faDollar,
   faMoneyBillTransfer,
 } from "@fortawesome/free-solid-svg-icons";
@@ -66,7 +65,7 @@ function SideBar() {
             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
               <a className="nav-link">
                 <i className="m-1">
-                  <FontAwesomeIcon icon={faRightFromBracket} />
+                  <FontAwesomeIcon icon={faChartLine} />
                 </i>
                 logout
               </a>

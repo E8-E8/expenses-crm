@@ -8,6 +8,8 @@ import "../../css/crm.css";
 import "../../css/display.css";
 import { useNavigate } from "react-router-dom";
 import api from "../../http/axios";
+import Pagination from "../menu/Pagination";
+import { Row, Col } from "react-bootstrap";
 
 function Expenses() {
   const navigate = useNavigate();
@@ -19,22 +21,32 @@ function Expenses() {
   const [balance, setBalance] = useState(0);
   const [sortByDate, setSortByDate] = useState("-createdAt");
   const [search, setSearch] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [expensesNumber, setExpensesNumber] = useState();
+  const [itemsPerPage, setPerPage] = useState(10);
 
   useEffect(() => {
     if (!jwt) {
       navigate("/login");
     } else {
       api
-        .get(`/expenses?sort=${sortByDate}&name=${search}`, {
-          headers: { Authorization: "Bearer " + jwt },
-        })
+        .get(
+          `/expenses?sort=${sortByDate}&name=${search}&limit=${itemsPerPage}&page=${pageNumber}`,
+          {
+            headers: { Authorization: "Bearer " + jwt },
+          }
+        )
         .then((res) => {
           setExpenses(res.data.expenses);
           setBalance(res.data.currentBalance);
+          setExpensesNumber(res.data.count);
         });
     }
-  }, [refresh, sortByDate, search]);
+  }, [refresh, sortByDate, search, pageNumber]);
 
+  function changePageNumber(pageNumber) {
+    setPageNumber(pageNumber);
+  }
   function changeSearch(newSearch) {
     setSearch(newSearch);
   }
@@ -76,7 +88,19 @@ function Expenses() {
                 lessRecent={lessRecent}
                 mostRecent={mostRecent}
               />
-              <InfoBar SectionName="Expenses" />
+              <Row>
+                <Col>
+                  <InfoBar SectionName="Expenses" />
+                </Col>
+                <Col className="mt-3">
+                  <Pagination
+                    changePageNumber={changePageNumber}
+                    itemsNumber={expensesNumber}
+                    itemsPerPage={itemsPerPage}
+                  />
+                </Col>
+              </Row>
+
               <div className="table-responsive">
                 <table className="table table-striped">
                   <thead>

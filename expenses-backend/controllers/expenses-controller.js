@@ -5,17 +5,26 @@ const Company = require("../models/Company");
 const { BadRequestError, NotFoundError } = require("../errors");
 
 const getAllExpenses = async (req, res) => {
-  const { sort, name } = req.query;
+  const { sort, name, dateFrom, dateTo } = req.query;
   const filtersObject = {};
 
   if (name) filtersObject.name = { $regex: name, $options: "i" };
+  if (dateFrom || dateTo)
+    filtersObject.createdAt = { $gte: dateFrom, $lte: dateTo };
 
-  const expenses = await Expense.find(filtersObject).sort(sort);
+  let result = Expense.find(filtersObject);
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  const count = await Expense.find(filtersObject);
+  const expenses = await result.limit(limit).skip(skip);
   const company = await Company.findById({ _id: process.env.COMPANY_ID });
   res.status(statusCodes.OK).json({
-    count: expenses.length,
-    expenses,
+    count: count.length,
     currentBalance: company.balance,
+    expenses,
   });
 };
 
