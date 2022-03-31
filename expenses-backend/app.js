@@ -5,9 +5,12 @@ const express = require("express");
 const app = express();
 
 //importing routes
+
 const expensesRoute = require("./routes/expenses-routes");
 const incomesRoute = require("./routes/incomes-routes");
 const authRoute = require("./routes/auth-routes");
+const statisticsRoute = require("./routes/statistics-routes");
+
 const cors = require("cors");
 //db connection import
 const connectDB = require("./db/db-connection");
@@ -24,6 +27,7 @@ app.use(express.static("./public"));
 app.use(cors());
 
 //api routes
+app.use("/api/v1/statistics", statisticsRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/expenses", checkUserAuth, expensesRoute);
 app.use("/api/v1/incomes", checkUserAuth, incomesRoute);

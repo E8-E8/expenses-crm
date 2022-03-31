@@ -13,24 +13,24 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function ExpensesStatistics() {
-  const [expenses, setExpenses] = useState([]);
+function ProfitStatistics() {
+  const [profitArr, setProfitArr] = useState([]);
   const [dateFrom, setDateFrom] = useState("01-01-2020");
   const [dateTo, setDateTo] = useState(new Date());
 
   useEffect(() => {
     api
-      .get(`/statistics/expenses?dateFrom=${dateFrom}&dateTo=${dateTo}`, {
+      .get(`/statistics/profit?dateFrom=${dateFrom}&dateTo=${dateTo}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
       })
       .then((res) => {
-        setExpenses(res.data.expensesStatistics);
+        setProfitArr(res.data.profitStatistics);
       });
   }, [dateFrom, dateTo]);
 
   return (
     <div className="mt-5">
-      <h1 className="text-center mt-5 mb-3">Expenses Graph</h1>
+      <h1 className="text-center mt-5 mb-3">Profit Graph</h1>
       <Container>
         <Row>
           <Col sm={3} />
@@ -65,7 +65,7 @@ function ExpensesStatistics() {
 
       <div style={{ width: "95%", height: 300 }}>
         <ResponsiveContainer>
-          <LineChart data={expenses} className="m-5 expenses-statistics">
+          <LineChart data={profitArr} className="m-5 expenses-statistics">
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey={"date"} />
             <YAxis />
@@ -73,7 +73,7 @@ function ExpensesStatistics() {
             <Legend />
             <Line
               type="monotone"
-              dataKey="sum"
+              dataKey="profit"
               stroke="#8884d8"
               activeDot={{ r: 8 }}
             />
@@ -84,4 +84,4 @@ function ExpensesStatistics() {
   );
 }
 
-export default ExpensesStatistics;
+export default ProfitStatistics;

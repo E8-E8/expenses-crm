@@ -2,6 +2,7 @@ import SideBar from "../menu/SideBar";
 import NavBar from "../menu/NavBar";
 import ExpensesStatistics from "./ExpensesStatistics";
 import IncomesStatistics from "./IncomesStatistics";
+import ProfitStatistics from "./ProfitStatistics";
 import "../../css/statistics.css";
 import { Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
@@ -26,6 +27,7 @@ function Statistics() {
           <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div id="main-data">
               <Row>
+                <ProfitStatistics />
                 <ExpensesStatistics />
                 <IncomesStatistics />
               </Row>

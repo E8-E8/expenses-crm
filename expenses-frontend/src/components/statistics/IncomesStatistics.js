@@ -20,20 +20,11 @@ function IncomesStatistics() {
 
   useEffect(() => {
     api
-      .get(`/incomes?dateFrom=${dateFrom}&dateTo=${dateTo}`, {
+      .get(`/statistics/incomes?dateFrom=${dateFrom}&dateTo=${dateTo}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
       })
       .then((res) => {
-        res.data.incomes.map((income) => {
-          console.log(
-            (income.createdAt = new Date(income.createdAt)
-              .toDateString()
-              .split(" ")
-              .slice(1)
-              .join(" "))
-          );
-        });
-        setIncomes(res.data.incomes);
+        setIncomes(res.data.incomesStatistics);
       });
   }, [dateFrom, dateTo]);
 
@@ -76,7 +67,7 @@ function IncomesStatistics() {
         <ResponsiveContainer>
           <LineChart data={incomes} className="m-5 expenses-statistics">
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={"createdAt"} />
+            <XAxis dataKey={"date"} />
             <YAxis />
             <Tooltip />
             <Legend />

@@ -1,6 +1,7 @@
 import react, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowRightFromBracket,
   faChartLine,
   faDollar,
   faMoneyBillTransfer,
@@ -53,7 +54,7 @@ function SideBar() {
             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
               <a className="nav-link" href="/statistics">
                 <i className="m-1">
-                  <FontAwesomeIcon icon={faDollar} />
+                  <FontAwesomeIcon icon={faChartLine} />
                 </i>
                 statistics
               </a>
@@ -66,7 +67,7 @@ function SideBar() {
             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
               <a className="nav-link">
                 <i className="m-1">
-                  <FontAwesomeIcon icon={faChartLine} />
+                  <FontAwesomeIcon icon={faArrowRightFromBracket} />
                 </i>
                 logout
               </a>
