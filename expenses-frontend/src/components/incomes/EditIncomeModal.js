@@ -2,7 +2,7 @@ import { Button, Modal, Container, Row, Col, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import api from "../../http/axios";
 
-function CreateIncomeModal({
+function EditIncomeModal({
   toggleEditIncomesModal,
   show,
   refreshIncomes,
@@ -120,4 +120,4 @@ function CreateIncomeModal({
   );
 }
 
-export default CreateIncomeModal;
+export default EditIncomeModal;

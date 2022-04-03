@@ -21,7 +21,6 @@ function IncomesControlBar(props) {
               Less recent
             </NavDropdown.Item>
           </NavDropdown>
-          <Navbar.Text>Current balance: {props.balance}</Navbar.Text>
         </Container>
       </Navbar>
     </>

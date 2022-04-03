@@ -133,8 +133,14 @@ const getProfitStatistics = async (req, res) => {
   res.status(statusCodes.OK).json({ profitStatistics });
 };
 
+const getBalance = async (req, res) => {
+  const company = await Company.findById(process.env.COMPANY_ID);
+  res.status(statusCodes.OK).json({ balance: company.balance });
+};
+
 module.exports = {
   getExpensesStatistics,
   getIncomesStatistics,
   getProfitStatistics,
+  getBalance,
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 import SideBar from "../menu/SideBar";
-import NavBar from "../menu/NavBar";
+import SearchBar from "../menu/SearchBar";
 import InfoBar from "../menu/InfoBar";
 import EditExpenseModal from "./EditExpenseModal";
 import ExpensesControlBar from "./ExpensesControlBar";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../http/axios";
 import Pagination from "../menu/Pagination";
 import { Row, Col } from "react-bootstrap";
+import NavBar from "../menu/NavBar";
 
 function Expenses() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Expenses() {
 
   useEffect(() => {
     if (!jwt) {
-      navigate("/login");
+      navigate("/");
     } else {
       api
         .get(
@@ -69,7 +70,8 @@ function Expenses() {
 
   return (
     <>
-      <NavBar changeSearch={changeSearch} />
+      <NavBar />
+      <SearchBar changeSearch={changeSearch} />
 
       <div className="container-fluid">
         <div className="row">

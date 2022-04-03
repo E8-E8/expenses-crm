@@ -75,7 +75,7 @@ const updateExpense = async (req, res) => {
   );
 
   if (!oldExpense) {
-    throw new NotFoundError(`No Income with id ${expenseId}`);
+    throw new NotFoundError(`No expense with id ${expenseId}`);
   }
 
   const updatedExpense = await Expense.findById({ _id: expenseId });
@@ -84,7 +84,7 @@ const updateExpense = async (req, res) => {
 
   const updatedCompany = await Company.findByIdAndUpdate(
     { _id: process.env.COMPANY_ID },
-    { currentBalance: balance },
+    { balance: balance },
     { new: true }
   );
 

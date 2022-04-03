@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 
 //importing routes
-
+const tasksRoute = require("./routes/tasks-routes");
 const expensesRoute = require("./routes/expenses-routes");
 const incomesRoute = require("./routes/incomes-routes");
 const authRoute = require("./routes/auth-routes");
@@ -31,6 +31,7 @@ app.use("/api/v1/statistics", statisticsRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/expenses", checkUserAuth, expensesRoute);
 app.use("/api/v1/incomes", checkUserAuth, incomesRoute);
+app.use("/api/v1/tasks", checkUserAuth, tasksRoute);
 
 //handler middleware
 app.use(errorHandlerMiddleware);

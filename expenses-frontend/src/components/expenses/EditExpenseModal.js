@@ -2,7 +2,7 @@ import { Button, Modal, Container, Row, Col, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import api from "../../http/axios";
 
-function CreateExpenseModal({
+function EditExpenseModal({
   toggleEditExpensesModal,
   show,
   refreshExpenses,
@@ -120,4 +120,4 @@ function CreateExpenseModal({
   );
 }
 
-export default CreateExpenseModal;
+export default EditExpenseModal;

@@ -1,6 +1,6 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 import SideBar from "../menu/SideBar";
-import NavBar from "../menu/NavBar";
+import SearchBar from "../menu/SearchBar";
 import InfoBar from "../menu/InfoBar";
 import IncomesControlBar from "./IncomesControlBar";
 import EditIncomeModal from "./EditIncomeModal";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../http/axios";
 import Pagination from "../menu/Pagination";
 import { Row, Col } from "react-bootstrap";
+import NavBar from "../menu/NavBar";
 
 function Incomes() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function Incomes() {
   useEffect(() => {
     if (!jwt) {
       // if there is not jwt user is being redirected to the login page
-      navigate("/login");
+      navigate("/");
     } else {
       api
         .get(
@@ -74,7 +75,8 @@ function Incomes() {
 
   return (
     <>
-      <NavBar changeSearch={changeSearch} />
+      <NavBar />
+      <SearchBar changeSearch={changeSearch} />
 
       <div className="container-fluid">
         <div className="row">
