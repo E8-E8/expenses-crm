@@ -1,11 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Login from "./components/auth/Login";
 import Expenses from "./components/expenses/Expenses";
 import Register from "./components/auth/Register";
@@ -13,13 +7,9 @@ import NotFound from "./components/NotFound";
 import Statistics from "./components/statistics/Statistics";
 import Incomes from "./components/incomes/Incomes";
 import Tasks from "./components/tasks/Tasks";
-import ReactLoading from "react-loading";
+import io from "socket.io-client";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setTimeout(setLoading(false), 2000);
-  });
   return (
     <div>
       <Router>

@@ -4,15 +4,28 @@ import api from "../../http/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 
+import { io } from "socket.io-client";
+
+const SERVER = "http://localhost:5000";
+
+const socket = io.connect(SERVER);
+
 function NavBar() {
   const [balance, setBalance] = useState(0);
   const [tasksNumber, setTasksNumber] = useState(0);
+  const [reload, setReload] = useState(false);
+
+  const reloadPage = () => {
+    setReload(!reload);
+  };
 
   useEffect(() => {
     api.get("/statistics/balance").then((res) => {
       setBalance(res.data.balance);
     });
+  });
 
+  useEffect(() => {
     api
       .get("/tasks?seen=false", {
         headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
@@ -20,7 +33,10 @@ function NavBar() {
       .then((res) => {
         setTasksNumber(res.data.count);
       });
-  });
+    socket.on("reload-page", () => {
+      reloadPage();
+    });
+  }, [reload, socket]);
 
   return (
     <Navbar

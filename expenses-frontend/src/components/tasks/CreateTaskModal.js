@@ -2,6 +2,16 @@ import { Button, Modal, Container, Row, Col, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import api from "../../http/axios";
 
+import { io } from "socket.io-client";
+
+const SERVER = "http://localhost:5000";
+
+const socket = io.connect(SERVER);
+
+async function reloadApp() {
+  await socket.emit("reload-app");
+}
+
 function CreateTaskModal({ reloadPage }) {
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
@@ -21,7 +31,10 @@ function CreateTaskModal({ reloadPage }) {
         setUsers(res.data.users);
         reloadPage();
       });
-  }, []);
+    socket.on("reload-page", () => {
+      console.log("hello");
+    });
+  }, [socket]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -41,6 +54,7 @@ function CreateTaskModal({ reloadPage }) {
         },
       })
       .then((res) => {
+        reloadApp();
         handleClose();
         reloadPage();
       });
