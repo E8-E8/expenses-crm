@@ -1,5 +1,4 @@
 import { Col } from "react-bootstrap";
-import { useEffect, useState } from "react";
 
 function Task(props) {
   return (

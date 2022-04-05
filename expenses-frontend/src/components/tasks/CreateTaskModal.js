@@ -1,12 +1,7 @@
 import { Button, Modal, Container, Row, Col, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import api from "../../http/axios";
-
-import { io } from "socket.io-client";
-
-const SERVER = "http://localhost:5000";
-
-const socket = io.connect(SERVER);
+import socket from "../../http/socket";
 
 async function reloadApp() {
   await socket.emit("reload-app");

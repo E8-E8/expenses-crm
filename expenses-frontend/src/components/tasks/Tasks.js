@@ -1,4 +1,4 @@
-import { Col, Row, Container, Button } from "react-bootstrap";
+import { Row, Container, Button } from "react-bootstrap";
 import "../../css/tasks.css";
 import Task from "./Task";
 import api from "../../http/axios";

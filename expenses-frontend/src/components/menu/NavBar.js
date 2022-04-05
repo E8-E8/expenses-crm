@@ -3,12 +3,7 @@ import { useEffect, useState } from "react";
 import api from "../../http/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
-
-import { io } from "socket.io-client";
-
-const SERVER = "http://localhost:5000";
-
-const socket = io.connect(SERVER);
+import socket from "../../http/socket";
 
 function NavBar() {
   const [balance, setBalance] = useState(0);
