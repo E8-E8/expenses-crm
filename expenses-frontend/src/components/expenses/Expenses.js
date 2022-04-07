@@ -27,22 +27,18 @@ function Expenses() {
   const [itemsPerPage, setPerPage] = useState(10);
 
   useEffect(() => {
-    if (!jwt) {
-      navigate("/");
-    } else {
-      api
-        .get(
-          `/expenses?sort=${sortByDate}&name=${search}&limit=${itemsPerPage}&page=${pageNumber}`,
-          {
-            headers: { Authorization: "Bearer " + jwt },
-          }
-        )
-        .then((res) => {
-          setExpenses(res.data.expenses);
-          setBalance(res.data.currentBalance);
-          setExpensesNumber(res.data.count);
-        });
-    }
+    api
+      .get(
+        `/expenses?sort=${sortByDate}&name=${search}&limit=${itemsPerPage}&page=${pageNumber}`,
+        {
+          headers: { Authorization: "Bearer " + jwt },
+        }
+      )
+      .then((res) => {
+        setExpenses(res.data.expenses);
+        setBalance(res.data.currentBalance);
+        setExpensesNumber(res.data.count);
+      });
   }, [refresh, sortByDate, search, pageNumber]);
 
   function changePageNumber(pageNumber) {

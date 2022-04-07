@@ -1,4 +1,4 @@
-import react, { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import "../../css/login-register.css";
 import { useNavigate } from "react-router-dom";
 import api from "../../http/axios";
@@ -7,6 +7,12 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+      navigate("/expenses");
+    }
+  });
 
   function LoginReq() {
     const loginData = JSON.stringify({ email: email, password: password });

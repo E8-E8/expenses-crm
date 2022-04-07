@@ -12,11 +12,6 @@ import SearchBar from "../menu/SearchBar";
 function Statistics() {
   const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!jwt) {
-      navigate("/");
-    }
-  });
 
   return (
     <>

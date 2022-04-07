@@ -1,4 +1,4 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../menu/SideBar";
 import SearchBar from "../menu/SearchBar";
 import InfoBar from "../menu/InfoBar";
@@ -27,23 +27,18 @@ function Incomes() {
   const [itemsPerPage, setPerPage] = useState(10);
 
   useEffect(() => {
-    if (!jwt) {
-      // if there is not jwt user is being redirected to the login page
-      navigate("/");
-    } else {
-      api
-        .get(
-          `/incomes?sort=${sortByDate}&name=${search}&page=${pageNumber}&limit=${itemsPerPage}`,
-          {
-            headers: { Authorization: "Bearer " + jwt },
-          }
-        )
-        .then((res) => {
-          setIncomes(res.data.incomes);
-          setBalance(res.data.currentBalance);
-          setIncomesNumber(res.data.count);
-        });
-    }
+    api
+      .get(
+        `/incomes?sort=${sortByDate}&name=${search}&page=${pageNumber}&limit=${itemsPerPage}`,
+        {
+          headers: { Authorization: "Bearer " + jwt },
+        }
+      )
+      .then((res) => {
+        setIncomes(res.data.incomes);
+        setBalance(res.data.currentBalance);
+        setIncomesNumber(res.data.count);
+      });
   }, [refresh, sortByDate, search, pageNumber]);
 
   function changePageNumber(pageNumber) {

@@ -14,29 +14,39 @@ function Tasks() {
   const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
 
   useEffect(() => {
-    if (!jwt) {
-      navigate("/");
-    } else {
-      api
-        .get("/tasks", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
-        })
-        .then((res) => {
-          setTasks(res.data.tasks);
-        });
+    api
+      .get("/tasks", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+      })
+      .then((res) => {
+        setTasks(res.data.tasks);
+      });
 
-      api.put(
-        "/tasks/seen",
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
-        }
-      );
-    }
+    api.put(
+      "/tasks/seen",
+      {},
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+      }
+    );
   }, [reload]);
 
   function reloadPage() {
     setReload(!reload);
+  }
+
+  function completeTask(taskId, completed) {
+    api
+      .patch(
+        `/tasks/${taskId}`,
+        { completed: completed },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+        }
+      )
+      .then((res) => {
+        reloadPage();
+      });
   }
 
   return (
@@ -49,10 +59,13 @@ function Tasks() {
             return (
               <Task
                 key={task._id}
+                id={task._id}
                 name={task.name}
                 description={task.description}
                 userName={task.createdByName}
                 date={strDate}
+                completed={task.completed}
+                completeTask={completeTask}
               />
             );
           })}
