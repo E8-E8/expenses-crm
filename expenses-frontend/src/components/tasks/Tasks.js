@@ -4,14 +4,10 @@ import Task from "./Task";
 import api from "../../http/axios";
 import { useEffect, useState } from "react";
 import CreateTaskModal from "./CreateTaskModal";
-import { useNavigate } from "react-router-dom";
 
 function Tasks() {
-  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
   const [reload, setReload] = useState(false);
-
-  const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
 
   useEffect(() => {
     api
