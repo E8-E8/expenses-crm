@@ -4,14 +4,10 @@ import Task from "./Task";
 import api from "../../http/axios";
 import { useEffect, useState } from "react";
 import CreateTaskModal from "./CreateTaskModal";
-import { useNavigate } from "react-router-dom";
 
 function Tasks() {
-  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
   const [reload, setReload] = useState(false);
-
-  const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
 
   useEffect(() => {
     api
@@ -52,6 +48,10 @@ function Tasks() {
   return (
     <div>
       <h1 className="text-center">Your tasks</h1>
+      <div className="text-center m-5">
+        <CreateTaskModal reloadPage={reloadPage} />
+        <Button href="/expenses">Go back</Button>
+      </div>
       <Container>
         <Row>
           {tasks.map((task) => {
@@ -71,10 +71,6 @@ function Tasks() {
           })}
         </Row>
       </Container>
-      <div className="text-center mt-5">
-        <CreateTaskModal reloadPage={reloadPage} />
-        <Button href="/expenses">Go back</Button>
-      </div>
     </div>
   );
 }

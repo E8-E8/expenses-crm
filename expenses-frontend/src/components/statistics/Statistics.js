@@ -4,15 +4,10 @@ import IncomesStatistics from "./IncomesStatistics";
 import ProfitStatistics from "./ProfitStatistics";
 import "../../css/statistics.css";
 import { Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import NavBar from "../menu/NavBar";
 import SearchBar from "../menu/SearchBar";
 
 function Statistics() {
-  const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
-  const navigate = useNavigate();
-
   return (
     <>
       <NavBar />

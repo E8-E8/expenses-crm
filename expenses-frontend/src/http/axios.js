@@ -1,6 +1,5 @@
 import axios from "axios";
 
-let jwt = localStorage.getItem("jwt");
 const api = axios.create({
   baseURL: "https://nodejs.rbs.md:5000/api/v1",
 });
