@@ -1,15 +1,6 @@
-require('dotenv').config();
+require("dotenv").config();
 require("express-async-errors");
 
-<<<<<<< HEAD
-const fs = require('fs');
-const https = require("https");
-const cors = require("cors");
-const privateKey  = fs.readFileSync('/etc/ssl/ssl-private-key.key');
-const certificate = fs.readFileSync('/etc/ssl/ssl-bundle.crt');
-const helmet = require("helmet");
-const credentials = {key: privateKey, cert: certificate};
-=======
 const fs = require("fs");
 const https = require("https");
 const cors = require("cors");
@@ -18,7 +9,6 @@ const privateKey = fs.readFileSync("/etc/ssl/ssl-private-key.key");
 const certificate = fs.readFileSync("/etc/ssl/ssl-bundle.crt");
 const helmet = require("helmet");
 const credentials = { key: privateKey, cert: certificate };
->>>>>>> 9c6b33f018b706defbcf5162dc282ee881272b39
 
 const express = require("express");
 const app = express();
