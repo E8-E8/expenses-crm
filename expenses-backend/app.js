@@ -1,13 +1,20 @@
 require("dotenv").config();
 require("express-async-errors");
-const http = require("http");
+
+const fs = require("fs");
+const https = require("https");
 const cors = require("cors");
+
+const privateKey = fs.readFileSync("/etc/ssl/ssl-private-key.key");
+const certificate = fs.readFileSync("/etc/ssl/ssl-bundle.crt");
+const helmet = require("helmet");
+const credentials = { key: privateKey, cert: certificate };
 
 const express = require("express");
 const app = express();
 const socketUtils = require("./utils/socketUtils.js");
 
-const server = http.createServer(app);
+const server = https.createServer(credentials, app);
 const io = socketUtils.sio(server);
 socketUtils.connection(io);
 
@@ -55,7 +62,7 @@ app.use(notFoundMiddleware);
 const port = process.env.PORT || 5000;
 
 server.listen(port, () => {
-  console.log(`listening on port:${port}`);
+  console.log(`listening carefully on port:${port}`);
 });
 
 const start = async () => {
