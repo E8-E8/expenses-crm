@@ -24,7 +24,7 @@ function Register() {
       })
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
-        navigate("/login");
+        navigate("/");
       });
   }
 
@@ -65,7 +65,7 @@ function Register() {
           Register
         </button>
         <div id="formFooter">
-          <a className="underlineHover" href="/login">
+          <a className="underlineHover" href="/">
             Already got an account? Login!
           </a>
         </div>

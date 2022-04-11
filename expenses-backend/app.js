@@ -2,7 +2,6 @@ require("dotenv").config();
 require("express-async-errors");
 const http = require("http");
 const cors = require("cors");
-const helmet = require("helmet");
 
 const express = require("express");
 const app = express();
@@ -37,7 +36,6 @@ const errorHandlerMiddleware = require("./middleware/error-handler-middleware");
 const { nextTick } = require("process");
 
 //express settings
-app.use(helmet());
 app.use(express.json());
 app.set("trust proxy", 1);
 app.use(express.static("./public"));
