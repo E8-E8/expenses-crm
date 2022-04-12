@@ -5,8 +5,10 @@ const fs = require("fs");
 const https = require("https");
 const cors = require("cors");
 
-const privateKey = fs.readFileSync("/etc/ssl/ssl-private-key.key");
-const certificate = fs.readFileSync("/etc/ssl/ssl-bundle.crt");
+
+const privateKey = fs.readFileSync(process.env.CERTIFICATE_KEY_PATH);
+const certificate = fs.readFileSync(process.env.CERTIFICATE_PATH);
+
 const helmet = require("helmet");
 const credentials = { key: privateKey, cert: certificate };
 
