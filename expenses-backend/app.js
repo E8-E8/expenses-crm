@@ -74,10 +74,3 @@ const start = async () => {
 };
 
 start();
-
-kfjasdlfjlkasjdl;
-fjsalkfjklasj;
-dflkasj;
-lfjadsjf;
-lasjdf;
-ljasldfj;
