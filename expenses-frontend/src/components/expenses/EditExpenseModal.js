@@ -12,6 +12,7 @@ function EditExpenseModal({
   const [sum, setSum] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
+  const [currencyType, setCurrencyType] = useState("");
 
   useEffect(() => {
     api
@@ -25,6 +26,7 @@ function EditExpenseModal({
           setSum(res.data.expense.sum);
           setDescription(res.data.expense.description);
           setType(res.data.expense.type);
+          setCurrencyType(res.data.expense.currencyType);
         }
       });
   }, [show]);
@@ -59,7 +61,7 @@ function EditExpenseModal({
         <Modal.Body>
           <Container>
             <Row>
-              <Col sm={8} className="mt-1">
+              <Col sm={4} className="mt-1">
                 <input
                   className="form-control"
                   value={name}
@@ -78,6 +80,9 @@ function EditExpenseModal({
                     setSum(e.target.value);
                   }}
                 />
+              </Col>
+              <Col sm={4}>
+                <input disabled value={currencyType} className="form-control" />
               </Col>
               <Col sm={4}></Col>
 

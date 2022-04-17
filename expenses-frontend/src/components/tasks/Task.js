@@ -8,7 +8,7 @@ function Task(props) {
           className={
             props.completed
               ? "text-center task border border-primary rounded m-1 disabled-task"
-              : "text-center task border border-primary rounded m-1 "
+              : "text-center task border border-primary rounded m-1"
           }
         >
           <h3>{props.name}</h3>

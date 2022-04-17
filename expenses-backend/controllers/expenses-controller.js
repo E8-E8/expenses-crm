@@ -1,7 +1,9 @@
 require("dotenv").config();
 const statusCodes = require("http-status-codes");
 const Expense = require("../models/Expense");
-const Company = require("../models/Company");
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+
 const { BadRequestError, NotFoundError } = require("../errors");
 
 const getAllExpenses = async (req, res) => {
@@ -25,12 +27,18 @@ const getAllExpenses = async (req, res) => {
   const limit = Number(req.query.limit) || 10;
   const skip = (page - 1) * limit;
 
+  const { userId } = jwt.decode(
+    req.headers.authorization.split(" ")[1],
+    process.env.JWT_SECRET
+  );
+
+  const user = await User.findById({ _id: userId });
   const count = await Expense.find(filtersObject);
   const expenses = await result.limit(limit).skip(skip);
-  const company = await Company.findById({ _id: process.env.COMPANY_ID });
   res.status(statusCodes.OK).json({
+    currentEurBalance: user.eurBalance,
+    currentMdlBalance: user.mdlBalance,
     count: count.length,
-    currentBalance: company.balance,
     expenses,
   });
 };
@@ -46,52 +54,53 @@ const getExpense = async (req, res) => {
 
 const createExpense = async (req, res) => {
   const expense = await Expense.create({ ...req.body });
-
-  const company = await Company.findById({ _id: process.env.COMPANY_ID });
-  const balance = company.balance - expense.sum;
-
-  const updatedCompany = await Company.findByIdAndUpdate(
-    { _id: process.env.COMPANY_ID },
-    { balance: balance },
-    { new: true }
+  const token = req.headers.authorization.split(" ")[1];
+  const newUser = updateUserBalance(
+    "create",
+    token,
+    expense.currencyType,
+    expense.sum
   );
-
-  res.status(statusCodes.CREATED).json({
-    msg: `Expense created successfully with id ${expense._id}`,
-    expenseId: expense._id,
-    currentBalance: updatedCompany.balance,
+  newUser.then((response) => {
+    let eurBalance = response.eurBalance;
+    let mdlBalance = response.mdlBalance;
+    res.status(statusCodes.CREATED).json({
+      msg: `Expense created successfully with id ${expense._id}`,
+      currentEurBalance: eurBalance,
+      currentMdlBalance: mdlBalance,
+    });
   });
 };
 
 const updateExpense = async (req, res) => {
   const { expenseId } = req.params;
-
-  const oldExpense = await Expense.findByIdAndUpdate(
-    { _id: expenseId },
-    req.body,
-    {
-      runValidators: true,
-    }
-  );
-
+  const oldExpense = await Expense.findById({ _id: expenseId });
   if (!oldExpense) {
     throw new NotFoundError(`No expense with id ${expenseId}`);
   }
 
-  const updatedExpense = await Expense.findById({ _id: expenseId });
-  const company = await Company.findById({ _id: process.env.COMPANY_ID });
-  const balance = company.balance + oldExpense.sum - updatedExpense.sum;
-
-  const updatedCompany = await Company.findByIdAndUpdate(
-    { _id: process.env.COMPANY_ID },
-    { balance: balance },
-    { new: true }
+  const updatedExpense = await Expense.findByIdAndUpdate(
+    { _id: expenseId },
+    req.body,
+    { new: true, runValidators: true }
   );
-
-  res.status(statusCodes.OK).json({
-    msg: "Expense updated successfully",
-    currentData: updatedExpense,
-    currentBalance: updatedCompany.balance,
+  const token = req.headers.authorization.split(" ")[1];
+  const newUser = updateUserBalance(
+    "update",
+    token,
+    updatedExpense.currencyType,
+    updatedExpense.sum,
+    oldExpense.sum
+  );
+  newUser.then((response) => {
+    let eurBalance = response.eurBalance;
+    let mdlBalance = response.mdlBalance;
+    res.status(statusCodes.OK).json({
+      msg: "Expense updated successfully",
+      currentData: updatedExpense,
+      currentEurBalance: eurBalance,
+      currentMdlBalance: mdlBalance,
+    });
   });
 };
 
@@ -102,21 +111,70 @@ const deleteExpense = async (req, res) => {
     throw new NotFoundError(`No expense with id ${expenseId}`);
   }
 
-  const company = await Company.findById({ _id: process.env.COMPANY_ID });
-  const balance = company.balance + expense.sum;
-
-  const updatedCompany = await Company.findByIdAndUpdate(
-    { _id: process.env.COMPANY_ID },
-    { currentBalance: balance },
-    { new: true }
-  );
-
   await Expense.findByIdAndRemove({ _id: expenseId });
+  const token = req.headers.authorization.split(" ")[1];
+
+  updateUserBalance("delete", token, expense.currencyType, expense.sum);
 
   res.status(statusCodes.OK).json({
     msg: "Expense deleted successfully",
-    currentBalance: updatedCompany.balance,
+    currentEurBalance: expense.eurBalance,
+    currentMdlBalance: expense.mdlBalance,
   });
+};
+
+const updateUserBalance = async (
+  action,
+  token,
+  currencyType,
+  sum,
+  previousSum
+) => {
+  const { userId } = await jwt.decode(token, process.env.JWT_SECRET);
+
+  const user = await User.findById({ _id: userId });
+  if (!user) {
+    throw new NotFoundError(`No user with id ${userId}`);
+  }
+  let balance;
+  let updatedUser;
+  if (currencyType === "eur") {
+    if (action === "create") {
+      balance = user.eurBalance - sum;
+    }
+    if (action === "update") {
+      balance = balance = user.eurBalance + previousSum - sum;
+    }
+    if (action === "delete") {
+      balance = user.eurBalance + sum;
+    }
+    updatedUser = await User.findByIdAndUpdate(
+      { _id: userId },
+      { eurBalance: balance },
+      { new: true }
+    );
+  }
+  if (currencyType === "mdl") {
+    if (action === "create") {
+      balance = user.mdlBalance - sum;
+    }
+
+    if (action === "update") {
+      balance = balance = user.mdlBalance + previousSum - sum;
+    }
+
+    if (action === "delete") {
+      balance = user.mdlBalance + sum;
+    }
+
+    updatedUser = await User.findByIdAndUpdate(
+      { _id: userId },
+      { mdlBalance: balance },
+      { new: true }
+    );
+  }
+
+  return updatedUser;
 };
 
 module.exports = {

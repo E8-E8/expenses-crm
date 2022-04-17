@@ -5,13 +5,11 @@ import ProfitStatistics from "./ProfitStatistics";
 import "../../css/statistics.css";
 import { Row } from "react-bootstrap";
 import NavBar from "../menu/NavBar";
-import SearchBar from "../menu/SearchBar";
 
 function Statistics() {
   return (
     <>
       <NavBar />
-      <SearchBar />
       <div className="container-fluid">
         <div className="row">
           <SideBar />

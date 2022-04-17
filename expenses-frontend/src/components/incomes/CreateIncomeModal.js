@@ -8,6 +8,7 @@ function CreateIncomeModal(props) {
   const [sum, setSum] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("one-time");
+  const [currencyType, setCurrencyType] = useState();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -19,6 +20,7 @@ function CreateIncomeModal(props) {
       description: description,
       type: type,
       createdBy: localStorage.getItem("userId"),
+      currencyType: currencyType,
     });
     console.log(incomeData);
     api
@@ -47,7 +49,7 @@ function CreateIncomeModal(props) {
         <Modal.Body>
           <Container>
             <Row>
-              <Col sm={8} className="mt-1">
+              <Col sm={4} className="mt-1">
                 <input
                   className="form-control"
                   placeholder="Name"
@@ -64,6 +66,16 @@ function CreateIncomeModal(props) {
                     setSum(e.target.value);
                   }}
                 />
+              </Col>
+              <Col sm={4} className="mt-1">
+                <Form.Select
+                  onChange={(e) => {
+                    setCurrencyType(e.target.value);
+                  }}
+                >
+                  <option value="eur">EUR</option>
+                  <option value="mdl">MDL</option>
+                </Form.Select>
               </Col>
               <Col sm={4}></Col>
 

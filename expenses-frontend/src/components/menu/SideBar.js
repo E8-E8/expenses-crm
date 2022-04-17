@@ -21,7 +21,7 @@ function SideBar() {
     <nav
       id="sidebarMenu"
       className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-      style={{ zIndex: 0, marginTop: "50px" }}
+      style={{ zIndex: 0, marginTop: "10px" }}
     >
       <div className="position-sticky pt-3">
         <ul className="nav flex-column">

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import SideBar from "../menu/SideBar";
-import SearchBar from "../menu/SearchBar";
 import InfoBar from "../menu/InfoBar";
 import IncomesControlBar from "./IncomesControlBar";
 import EditIncomeModal from "./EditIncomeModal";
@@ -39,7 +38,7 @@ function Incomes() {
         setBalance(res.data.currentBalance);
         setIncomesNumber(res.data.count);
       });
-  }, [refresh, sortByDate, search, pageNumber]);
+  }, [refresh, sortByDate, search, pageNumber, setShowEditModal]);
 
   function changePageNumber(pageNumber) {
     //used for the pagination
@@ -70,8 +69,7 @@ function Incomes() {
 
   return (
     <>
-      <NavBar />
-      <SearchBar changeSearch={changeSearch} />
+      <NavBar changeSearch={changeSearch} />
 
       <div className="container-fluid">
         <div className="row">

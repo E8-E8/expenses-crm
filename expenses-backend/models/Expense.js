@@ -27,6 +27,14 @@ const ExpenseSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Please provide a user"],
     },
+    currencyType: {
+      type: String,
+      default: "eur",
+      enum: {
+        values: ["eur", "mdl"],
+        message: "{VALUE} is not supported",
+      },
+    },
   },
   { timestamps: true }
 );

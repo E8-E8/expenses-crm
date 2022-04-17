@@ -1,6 +1,5 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 import SideBar from "../menu/SideBar";
-import SearchBar from "../menu/SearchBar";
 import InfoBar from "../menu/InfoBar";
 import EditExpenseModal from "./EditExpenseModal";
 import ExpensesControlBar from "./ExpensesControlBar";
@@ -66,8 +65,7 @@ function Expenses() {
 
   return (
     <>
-      <NavBar />
-      <SearchBar changeSearch={changeSearch} />
+      <NavBar changeSearch={changeSearch} />
 
       <div className="container-fluid">
         <div className="row">

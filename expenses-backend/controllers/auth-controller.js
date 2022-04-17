@@ -39,8 +39,16 @@ const getUsers = async (req, res) => {
   res.status(StatusCodes.OK).json({ users });
 };
 
+const getUser = async (req, res) => {
+  const userId = req.params.id;
+  const user = await User.findById(userId);
+
+  res.status(StatusCodes.OK).json({ user });
+};
+
 module.exports = {
   register,
   getUsers,
   login,
+  getUser,
 };

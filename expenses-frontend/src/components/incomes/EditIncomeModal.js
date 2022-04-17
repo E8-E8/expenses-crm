@@ -12,6 +12,7 @@ function EditIncomeModal({
   const [sum, setSum] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
+  const [currencyType, setCurrencyType] = useState("");
 
   useEffect(() => {
     api
@@ -20,11 +21,13 @@ function EditIncomeModal({
       })
       .then((res) => {
         const income = res.data.income;
-        if (income != undefined) {
+        console.log(income);
+        if (income !== undefined) {
           setName(res.data.income.name);
           setSum(res.data.income.sum);
           setDescription(res.data.income.description);
           setType(res.data.income.type);
+          setCurrencyType(res.data.income.currencyType);
         }
       });
   }, [show]);
@@ -59,7 +62,7 @@ function EditIncomeModal({
         <Modal.Body>
           <Container>
             <Row>
-              <Col sm={8} className="mt-1">
+              <Col sm={4} className="mt-1">
                 <input
                   className="form-control"
                   value={name}
@@ -79,11 +82,13 @@ function EditIncomeModal({
                   }}
                 />
               </Col>
-              <Col sm={4}></Col>
+              <Col sm={4}>
+                <input disabled value={currencyType} className="form-control" />
+              </Col>
 
               <Col sm={12} className="mt-3">
                 <textarea
-                  defaultValue={description}
+                  value={description}
                   placeholder="Description"
                   rows={3}
                   className="form-control"
