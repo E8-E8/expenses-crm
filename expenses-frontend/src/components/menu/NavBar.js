@@ -26,11 +26,11 @@ function SearchBar(props) {
 
   useEffect(() => {
     api.get(`/auth/users/${localStorage.getItem("userId")}`).then((res) => {
-      setEurBalance(res.data.user.eurBalance);
-      setMdlBalance(res.data.user.mdlBalance);
+      setEurBalance(parseFloat(res.data.user.eurBalance).toFixed(2));
+      setMdlBalance(parseFloat(res.data.user.mdlBalance).toFixed(2));
       console.log(res.data);
     });
-  }, [reload]);
+  });
 
   useEffect(() => {
     api
@@ -43,7 +43,7 @@ function SearchBar(props) {
     socket.on("reload-page", () => {
       reloadPage();
     });
-  }, [reload, socket]);
+  }, [socket, reload]);
 
   return (
     <Navbar bg="dark" variant="dark" style={{ zIndex: 3 }}>
@@ -52,7 +52,7 @@ function SearchBar(props) {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto">
-            <Nav.Link>
+            <Nav.Link href="/profile">
               <FontAwesomeIcon icon={faUser} />
             </Nav.Link>
             <Nav.Link href="/tasks" className="pe-0">

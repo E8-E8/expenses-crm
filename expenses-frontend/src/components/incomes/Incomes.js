@@ -23,7 +23,7 @@ function Incomes() {
   const [search, setSearch] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [incomesNumber, setIncomesNumber] = useState();
-  const [itemsPerPage, setPerPage] = useState(10);
+  const [itemsPerPage, setPerPage] = useState(25);
 
   useEffect(() => {
     api

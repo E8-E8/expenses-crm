@@ -6,10 +6,14 @@ const {
   register,
   getUsers,
   getUser,
+  updateUser,
 } = require("../controllers/auth-controller");
 
 router.post("/login", login);
 router.post("/register", register);
-router.get("/users", getUsers).get("/users/:id", getUser);
+router
+  .get("/users", getUsers)
+  .get("/users/:id", getUser)
+  .patch("/users/:id", updateUser);
 
 module.exports = router;

@@ -7,6 +7,7 @@ import NotFound from "./components/NotFound";
 import Statistics from "./components/statistics/Statistics";
 import Incomes from "./components/incomes/Incomes";
 import Tasks from "./components/tasks/Tasks";
+import Profile from "./components/profile/Profile";
 import io from "socket.io-client";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/tasks" element={<Tasks />}></Route>
           <Route path="/incomes" element={<Incomes />}></Route>
           <Route path="/statistics" element={<Statistics />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </Router>

@@ -44,7 +44,6 @@ const expensesRoute = require("./routes/expenses-routes");
 const incomesRoute = require("./routes/incomes-routes");
 const authRoute = require("./routes/auth-routes");
 const statisticsRoute = require("./routes/statistics-routes");
-
 //db connection import
 const connectDB = require("./db/db-connection");
 

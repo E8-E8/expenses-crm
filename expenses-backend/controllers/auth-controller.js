@@ -46,9 +46,19 @@ const getUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user });
 };
 
+const updateUser = async (req, res) => {
+  const userId = req.params.id;
+  const user = await User.findByIdAndUpdate(userId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(StatusCodes.OK).json({ user });
+};
+
 module.exports = {
   register,
   getUsers,
   login,
   getUser,
+  updateUser,
 };

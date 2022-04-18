@@ -135,8 +135,7 @@ const updateUserBalance = async (
   sum,
   previousSum
 ) => {
-  const { userId } = await jwt.decode(token, process.env.JWT_SECRET);
-
+  const { userId } = jwt.decode(token, process.env.JWT_SECRET);
   const user = await User.findById({ _id: userId });
   if (!user) {
     throw new NotFoundError(`No user with id ${userId}`);
@@ -148,7 +147,7 @@ const updateUserBalance = async (
       balance = user.eurBalance + sum;
     }
     if (action === "update") {
-      balance = balance = user.eurBalance - previousSum + sum;
+      balance = user.eurBalance - previousSum + sum;
     }
     if (action === "delete") {
       balance = user.eurBalance - sum;
@@ -163,11 +162,9 @@ const updateUserBalance = async (
     if (action === "create") {
       balance = user.mdlBalance + sum;
     }
-
     if (action === "update") {
       balance = balance = user.mdlBalance - previousSum + sum;
     }
-
     if (action === "delete") {
       balance = user.mdlBalance - sum;
     }
@@ -177,7 +174,6 @@ const updateUserBalance = async (
       { new: true }
     );
   }
-
   return updatedUser;
 };
 
