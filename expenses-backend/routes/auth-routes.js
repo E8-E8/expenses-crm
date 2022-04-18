@@ -12,8 +12,8 @@ const {
 router.post("/login", login);
 router.post("/register", register);
 router
+  .patch("/users/:id", updateUser)
   .get("/users", getUsers)
-  .get("/users/:id", getUser)
-  .patch("/users/:id", updateUser);
+  .get("/users/:id", getUser);
 
 module.exports = router;
