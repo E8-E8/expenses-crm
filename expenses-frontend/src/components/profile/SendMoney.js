@@ -61,7 +61,7 @@ function SendMoney({ reloadPage, eurBalance, mdlBalance }) {
               },
             });
           })
-          .then((res) => {
+          .then(() => {
             reloadPage();
           });
       } else if (currencyType === "mdl") {
@@ -96,7 +96,7 @@ function SendMoney({ reloadPage, eurBalance, mdlBalance }) {
               },
             });
           })
-          .then((res) => {
+          .then(() => {
             reloadPage();
           });
       }
@@ -125,6 +125,7 @@ function SendMoney({ reloadPage, eurBalance, mdlBalance }) {
           </Col>
           <Col>
             <FormControl
+              className="m-0"
               placeholder="Amount of money"
               aria-describedby="basic-addon1"
               onChange={(e) => {
