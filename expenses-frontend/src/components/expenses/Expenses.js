@@ -1,4 +1,4 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../menu/SideBar";
 import InfoBar from "../menu/InfoBar";
 import EditExpenseModal from "./EditExpenseModal";

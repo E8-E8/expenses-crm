@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
   faChartLine,
-  faDollar,
+  faUser,
   faMoneyBillTransfer,
   faMoneyBillTrendUp,
 } from "@fortawesome/free-solid-svg-icons";
@@ -45,6 +45,32 @@ function SideBar() {
                   <FontAwesomeIcon icon={faMoneyBillTrendUp} />
                 </i>
                 incomes
+              </a>
+              <a className="link-secondary">
+                <i className="fas fa-plus-circle"></i>
+              </a>
+            </h6>
+          </li>
+          <li className="nav-item">
+            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
+              <a className="nav-link" href="/customers">
+                <i className="m-1">
+                  <FontAwesomeIcon icon={faUser} />
+                </i>
+                customers
+              </a>
+              <a className="link-secondary">
+                <i className="fas fa-plus-circle"></i>
+              </a>
+            </h6>
+          </li>
+          <li className="nav-item">
+            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1">
+              <a className="nav-link" href="/prospects">
+                <i className="m-1">
+                  <FontAwesomeIcon icon={faUser} />
+                </i>
+                prospects
               </a>
               <a className="link-secondary">
                 <i className="fas fa-plus-circle"></i>
