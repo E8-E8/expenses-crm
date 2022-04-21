@@ -68,7 +68,7 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/expenses", checkUserAuth, expensesRoute);
 app.use("/api/v1/incomes", checkUserAuth, incomesRoute);
 app.use("/api/v1/tasks", checkUserAuth, tasksRoute);
-app.use("/api/v1/customers", apiKeyMiddleware, customersRoute);
+app.use("/api/v1/customers", customersRoute);
 app.use("/api/v1/prospects", checkUserAuth, prospectsRoute);
 app.use("/api/v1/comments", checkUserAuth, commentsRoute);
 //socket connection

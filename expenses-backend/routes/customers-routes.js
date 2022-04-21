@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const apiKeyMiddleware = require("../middleware/api-key-middleware");
+const checkUserAuth = require("../middleware/auth-middleware");
 
 const {
   getAllCustomers,
@@ -9,7 +11,9 @@ const {
   deleteCustomer,
 } = require("../controllers/customers-controller");
 
-router.get("/", getAllCustomers).post("/", createCustomer);
+router
+  .get("/", checkUserAuth, getAllCustomers)
+  .post("/", apiKeyMiddleware, createCustomer);
 router
   .get("/:customerId", getCustomer)
   .patch("/:customerId", updateCustomer)

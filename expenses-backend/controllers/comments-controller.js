@@ -1,4 +1,4 @@
-const Comment = require("../models/comment");
+const Comment = require("../models/Comment");
 const statusCodes = require("http-status-codes");
 
 const createComment = async (req, res, next) => {
