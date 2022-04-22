@@ -61,7 +61,7 @@ function Prospects(props) {
                 </Col>
               </Row>
               <ProspectsTable
-                refresh={refresh}
+                refreshProspects={refreshProspects}
                 limit={prospectsPerPage}
                 page={pageNumber}
                 search={search}

@@ -26,9 +26,7 @@ function CreateTaskModal({ reloadPage }) {
         setUsers(res.data.users);
         reloadPage();
       });
-    socket.on("reload-page", () => {
-      console.log("hello");
-    });
+    socket.on("reload-page", () => {});
   }, [socket]);
 
   const handleClose = () => setShow(false);
@@ -40,7 +38,6 @@ function CreateTaskModal({ reloadPage }) {
       description: description,
       createdFor: createdFor,
     });
-    console.log(taskData);
     api
       .post("/tasks", taskData, {
         headers: {
@@ -84,7 +81,6 @@ function CreateTaskModal({ reloadPage }) {
                   aria-label="Default select example"
                   onChange={(e) => {
                     setCreatedFor(e.target.value);
-                    console.log(createdFor);
                   }}
                 >
                   {users.map((user) => {

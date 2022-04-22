@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: "http://localhost:5000/api/v1",
 });
 
+api.defaults.headers.common["Content-Type"] = "application/json";
 api.interceptors.response.use(
   (response) => {
     return response;

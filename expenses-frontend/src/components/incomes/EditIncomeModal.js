@@ -21,7 +21,6 @@ function EditIncomeModal({
       })
       .then((res) => {
         const income = res.data.income;
-        console.log(income);
         if (income !== undefined) {
           setName(res.data.income.name);
           setSum(res.data.income.sum);

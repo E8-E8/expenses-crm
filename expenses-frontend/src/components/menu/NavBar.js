@@ -28,7 +28,6 @@ function SearchBar(props) {
     api.get(`/auth/users/${localStorage.getItem("userId")}`).then((res) => {
       setEurBalance(parseFloat(res.data.user.eurBalance).toFixed(2));
       setMdlBalance(parseFloat(res.data.user.mdlBalance).toFixed(2));
-      console.log(res.data);
     });
   });
 

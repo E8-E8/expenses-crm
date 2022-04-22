@@ -32,7 +32,6 @@ function Profile() {
 
   function reloadPage() {
     setReload(!reload);
-    console.log("reloaded");
   }
   function changeExchanger() {
     if (exchangerType === "eurToMdl") {

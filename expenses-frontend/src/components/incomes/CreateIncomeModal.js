@@ -22,7 +22,6 @@ function CreateIncomeModal(props) {
       createdBy: localStorage.getItem("userId"),
       currencyType: currencyType,
     });
-    console.log(incomeData);
     api
       .post("/incomes", incomeData, {
         headers: {

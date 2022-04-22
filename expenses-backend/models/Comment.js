@@ -15,6 +15,10 @@ const CommentSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Please provide a user"],
     },
+    createdByName: {
+      type: String,
+      required: [true, "Please provide a user name"],
+    },
   },
   { timestamps: true }
 );

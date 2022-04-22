@@ -31,7 +31,6 @@ function MdlToEurExchanger({ reloadPage }) {
       eurBalance: +eurBalance + +exchangeEur,
       mdlBalance: +mdlBalance - +exchangeMdl,
     };
-    console.log(exchangeData);
     api.patch(`/auth/users/${localStorage.getItem("userId")}`, exchangeData, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,

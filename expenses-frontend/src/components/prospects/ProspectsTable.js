@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../http/axios";
 import EditProspectModal from "./EditProspectModal";
 
-function ProspectsTable({ limit, page, search, refresh }) {
+function ProspectsTable({ limit, page, search, refreshProspects }) {
   const [prospects, setProspects] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [prospectId, setProspectId] = useState("");
@@ -19,13 +19,13 @@ function ProspectsTable({ limit, page, search, refresh }) {
       .then((res) => {
         setProspects(res.data.prospects);
       });
-  }, [page, search, refresh]);
+  }, [page, search, refreshProspects]);
 
   return (
     <>
       <EditProspectModal
         toggleShowEditModal={toggleShowEditModal}
-        refresh={refresh}
+        refreshProspects={refreshProspects}
         show={showEditModal}
         prospectId={prospectId}
       />
