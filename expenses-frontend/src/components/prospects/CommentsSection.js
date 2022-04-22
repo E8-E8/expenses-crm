@@ -38,7 +38,7 @@ function CommentSection({ toggleShowEditModal, prospectId }) {
         <Accordion>
           {comments.map((comment, i) => (
             <Accordion.Item eventKey={i} key={comment._id} className="m-0">
-              <Accordion.Header>
+              <Accordion.Header className="m-0">
                 {comment.createdByName} -{" "}
                 {new Date(comment.createdAt).toDateString()}
               </Accordion.Header>
