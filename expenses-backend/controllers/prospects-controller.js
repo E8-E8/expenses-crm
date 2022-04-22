@@ -33,7 +33,15 @@ const getProspect = async (req, res) => {
 };
 
 const createProspect = async (req, res) => {
-  const prospect = await Prospect.create({ ...req.body });
+  let prospectData = {};
+
+  if (req.headers.authorization == process.env.API_KEY) {
+    prospectData = { ...req.body, status: "hot" };
+  } else {
+    prospectData = { ...req.body };
+  }
+
+  const prospect = await Prospect.create(prospectData);
   res.status(statusCodes.OK).json({ prospect });
 };
 

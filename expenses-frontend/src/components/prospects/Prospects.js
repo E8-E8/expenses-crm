@@ -47,12 +47,6 @@ function Prospects(props) {
           <SideBar />
           <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div id="main-data">
-              {/*   <EditExpenseModal
-                 toggleEditExpensesModal={toggleEditExpensesModal}
-                 refreshExpenses={refreshExpenses}
-                 show={showEditModal}
-                 expenseId={expenseId}
-              /> */}
               <ProspectsControlBar refreshProspects={refreshProspects} />
               <Row>
                 <Col>

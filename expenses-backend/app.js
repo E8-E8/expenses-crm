@@ -44,7 +44,6 @@ const expensesRoute = require("./routes/expenses-routes");
 const incomesRoute = require("./routes/incomes-routes");
 const authRoute = require("./routes/auth-routes");
 const statisticsRoute = require("./routes/statistics-routes");
-const customersRoute = require("./routes/customers-routes");
 const prospectsRoute = require("./routes/prospects-routes");
 const commentsRoute = require("./routes/comments-routes");
 //db connection import
@@ -68,7 +67,6 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/expenses", checkUserAuth, expensesRoute);
 app.use("/api/v1/incomes", checkUserAuth, incomesRoute);
 app.use("/api/v1/tasks", checkUserAuth, tasksRoute);
-app.use("/api/v1/customers", customersRoute);
 app.use("/api/v1/prospects", checkUserAuth, prospectsRoute);
 app.use("/api/v1/comments", checkUserAuth, commentsRoute);
 //socket connection

@@ -8,7 +8,6 @@ import Statistics from "./components/statistics/Statistics";
 import Incomes from "./components/incomes/Incomes";
 import Tasks from "./components/tasks/Tasks";
 import Profile from "./components/profile/Profile";
-import Customers from "./components/customers/Customers";
 import Prospect from "./components/prospects/Prospects";
 import io from "socket.io-client";
 
@@ -20,7 +19,6 @@ function App() {
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/expenses" element={<Expenses />}></Route>
-          <Route path="/customers" element={<Customers />}></Route>
           <Route path="/tasks" element={<Tasks />}></Route>
           <Route path="/incomes" element={<Incomes />}></Route>
           <Route path="/statistics" element={<Statistics />}></Route>

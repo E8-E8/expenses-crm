@@ -22,6 +22,20 @@ const ProspectSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    completed: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: {
+        values: ["hot", "default"],
+        message: "{VALUE} is not supported",
+      },
+      default: "default",
+    },
   },
   { timestamps: true }
 );
