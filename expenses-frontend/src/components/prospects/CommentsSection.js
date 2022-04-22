@@ -28,6 +28,7 @@ function CommentSection({ toggleShowEditModal, prospectId }) {
       })
       .then((res) => {
         setRefresh(!refresh);
+        setText("");
       });
   }
 
@@ -36,7 +37,7 @@ function CommentSection({ toggleShowEditModal, prospectId }) {
       <Modal.Body>
         <Accordion>
           {comments.map((comment, i) => (
-            <Accordion.Item eventKey={i} key={comment._id}>
+            <Accordion.Item eventKey={i} key={comment._id} className="m-0">
               <Accordion.Header>
                 {comment.createdByName} -{" "}
                 {new Date(comment.createdAt).toDateString()}
