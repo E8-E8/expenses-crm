@@ -1,14 +1,26 @@
 const Message = require("../models/Message");
 const statusCodes = require("http-status-codes");
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
 const getAllMessages = async (req, res) => {
   const messages = await Message.find({});
-  res.status(statusCodes.OK).json(messages);
+  res.status(statusCodes.OK).json({ messages });
 };
 
 const createMessage = async (req, res) => {
-  const message = await Message.create(req.body);
-  res.status(statusCodes.OK).json(message);
+  const { userId } = jwt.decode(
+    req.headers.authorization.split(" ")[1],
+    process.env.JWT_SECRET
+  );
+  const user = await User.findById({ _id: userId });
+
+  const message = await Message.create({
+    ...req.body,
+    createdBy: user._id,
+    createdByName: user.name,
+  });
+  res.status(statusCodes.OK).json({ message });
 };
 
 const deleteMessage = async (req, res) => {
@@ -19,7 +31,7 @@ const deleteMessage = async (req, res) => {
     });
   }
 
-  res.status(statusCodes.OK).json(message);
+  res.status(statusCodes.OK).json({ message });
 };
 
 const editMessage = async (req, res) => {
@@ -37,7 +49,7 @@ const editMessage = async (req, res) => {
     });
   }
 
-  res.status(statusCodes.OK).json(message);
+  res.status(statusCodes.OK).json({ message });
 };
 
 module.exports = {

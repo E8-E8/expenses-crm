@@ -25,6 +25,7 @@ function Login() {
       .then((res) => {
         localStorage.setItem("jwt", res.data.token);
         localStorage.setItem("userId", res.data.user.id);
+        localStorage.setItem("userName", res.data.user.name);
       })
       .then(() => {
         navigate("/expenses");
