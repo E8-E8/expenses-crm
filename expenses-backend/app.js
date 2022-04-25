@@ -46,6 +46,7 @@ const authRoute = require("./routes/auth-routes");
 const statisticsRoute = require("./routes/statistics-routes");
 const prospectsRoute = require("./routes/prospects-routes");
 const commentsRoute = require("./routes/comments-routes");
+const messagesRoute = require("./routes/messages-routes");
 //db connection import
 const connectDB = require("./db/db-connection");
 
@@ -69,6 +70,7 @@ app.use("/api/v1/incomes", checkUserAuth, incomesRoute);
 app.use("/api/v1/tasks", checkUserAuth, tasksRoute);
 app.use("/api/v1/prospects", checkUserAuth, prospectsRoute);
 app.use("/api/v1/comments", checkUserAuth, commentsRoute);
+app.use("/api/v1/messages", checkUserAuth, messagesRoute);
 //socket connection
 
 //handler middleware

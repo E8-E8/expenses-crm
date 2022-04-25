@@ -15,6 +15,10 @@ exports.connection = (io) => {
       io.sockets.emit("reload-page", null);
     });
 
+    socket.on("new-message", () => {
+      io.sockets.emit("reload-messages-page", null);
+    });
+
     socket.on("disconnect", () => {});
   });
 };

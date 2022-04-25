@@ -9,7 +9,7 @@ import Incomes from "./components/incomes/Incomes";
 import Tasks from "./components/tasks/Tasks";
 import Profile from "./components/profile/Profile";
 import Prospect from "./components/prospects/Prospects";
-import io from "socket.io-client";
+import Chat from "./components/chat/Chat";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route path="/statistics" element={<Statistics />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/prospects" element={<Prospect />}></Route>
+          <Route path="/chat" element={<Chat />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </Router>

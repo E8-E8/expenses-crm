@@ -42,7 +42,7 @@ function InfoSection({
       })
       .then((res) => {
         const prospect = res.data.prospect;
-        if (prospect !== undefined) {
+        if (prospect !== null) {
           setName(prospect.name);
           setCompany(prospect.company);
           setServiceType(prospect.serviceType);

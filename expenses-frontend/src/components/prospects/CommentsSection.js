@@ -27,8 +27,8 @@ function CommentSection({ toggleShowEditModal, prospectId }) {
         headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
       })
       .then((res) => {
-        setRefresh(!refresh);
         setText("");
+        setRefresh(!refresh);
       });
   }
 
@@ -49,6 +49,7 @@ function CommentSection({ toggleShowEditModal, prospectId }) {
           ))}
         </Accordion>
         <textarea
+          value={text}
           rows={5}
           className="form-control mt-3"
           placeholder="Write a comment here..."

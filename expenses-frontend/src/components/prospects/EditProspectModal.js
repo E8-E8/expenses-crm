@@ -40,20 +40,20 @@ function EditProspectModal({
         </Modal.Header>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <a
-              className={tab == "info" ? "nav-link active" : "nav-link"}
+            <button
+              className={tab === "info" ? "nav-link active" : "nav-link"}
               onClick={() => setTab("info")}
             >
               Info
-            </a>
+            </button>
           </li>
           <li className="nav-item">
-            <a
-              className={tab == "comments" ? "nav-link active" : "nav-link"}
+            <button
+              className={tab === "comments" ? "nav-link active" : "nav-link"}
               onClick={() => setTab("comments")}
             >
               Comments
-            </a>
+            </button>
           </li>
         </ul>
         {activeTab}
