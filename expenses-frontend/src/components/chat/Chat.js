@@ -113,7 +113,7 @@ function Chat() {
                     onKeyPress={checkIfEnterIsClicked}
                     value={messageText}
                     type="text"
-                    className="form-control"
+                    className="form-control m-0"
                     placeholder="Enter your message here..."
                     onChange={(e) => setMessageText(e.target.value)}
                     rows={1}
