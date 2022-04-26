@@ -1,9 +1,9 @@
-function UserMessage({ messageText }) {
+function UserMessage({ messageText, date }) {
   return (
     <li className="clearfix">
       <div className="message-data text-right">
         <p className="message-data-time " style={{ textAlign: "right" }}>
-          10:10 AM, Today
+          {date}
         </p>
       </div>
       <div className="message other-message float-right">{messageText}</div>

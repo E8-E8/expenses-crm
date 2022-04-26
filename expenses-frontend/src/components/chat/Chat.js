@@ -39,7 +39,16 @@ function Chat() {
   function reloadPage() {
     setReload(!reload);
   }
-
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
+    return strTime.toUpperCase();
+  }
   const checkIfEnterIsClicked = (e) => {
     if (e.key === "Enter") {
       sendMessage();
@@ -81,11 +90,15 @@ function Chat() {
               <div className="chat-history scroll">
                 <ul className="m-b-0 " ref={chat}>
                   {messages.map((message) => {
-                    const date = new Date(message.createdAt);
-                    console.log(date);
+                    const date =
+                      formatAMPM(new Date(message.createdAt)) +
+                      ", " +
+                      new Date().toLocaleDateString("ru");
+
                     if (message.createdBy === localStorage.getItem("userId")) {
                       return (
                         <UserMessage
+                          date={date}
                           key={message._id}
                           messageText={message.text}
                         />
@@ -93,6 +106,7 @@ function Chat() {
                     } else {
                       return (
                         <Message
+                          date={date}
                           key={message._id}
                           messageText={message.text}
                           createdBy={message.createdByName}

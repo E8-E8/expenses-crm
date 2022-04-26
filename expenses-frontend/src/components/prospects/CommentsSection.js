@@ -32,6 +32,12 @@ function CommentSection({ toggleShowEditModal, prospectId }) {
       });
   }
 
+  const checkIfEnterIsClicked = (e) => {
+    if (e.key === "Enter") {
+      createComment();
+    }
+  };
+
   return (
     <>
       <Modal.Body>
@@ -49,6 +55,7 @@ function CommentSection({ toggleShowEditModal, prospectId }) {
           ))}
         </Accordion>
         <textarea
+          onKeyPress={checkIfEnterIsClicked}
           value={text}
           rows={5}
           className="form-control mt-3"
