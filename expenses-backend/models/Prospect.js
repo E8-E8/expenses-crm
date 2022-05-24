@@ -2,31 +2,59 @@ const mongoose = require("mongoose");
 
 const ProspectSchema = new mongoose.Schema(
   {
-    name: {
+    brand: {
       type: String,
-      required: true,
+      default: "did not answer",
     },
-    company: {
+    position: {
       type: String,
-      required: true,
+      default: "did not answer",
     },
-    phoneNumber: {
+    website: {
       type: String,
-      required: true,
+      default: "did not answer",
+    },
+
+    fullname: {
+      type: String,
+      default: "did not answer",
+    },
+    country: {
+      type: String,
+      default: "did not answer",
     },
     email: {
       type: String,
-      required: true,
+      default: "did not answer",
     },
-    serviceType: {
-      type: String,
-      required: true,
+
+    question1: {
+      type: Object,
+      default: {
+        answer: false,
+      },
     },
-    completed: {
-      type: Boolean,
-      default: false,
-      required: true,
+    question2: {
+      type: Object,
+      default: {
+        answer: false,
+      },
     },
+    question3: {
+      type: Object,
+      default: {
+        answer: false,
+      },
+    },
+    question4: {
+      type: Object,
+      default: "did not answer",
+    },
+    question5: {
+      type: Object,
+      default: "did not answer",
+    },
+
     status: {
       type: String,
       required: true,

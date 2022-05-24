@@ -8,32 +8,31 @@ function InfoSection({
   refreshProspects,
   toggleShowEditModal,
 }) {
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [serviceType, setServiceType] = useState("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [brand, setBrand] = useState("");
+  const [position, setPosition] = useState("");
+  const [website, setWebsite] = useState("");
+  const [country, setCountry] = useState("");
+  const [question1, setQuestion1] = useState({
+    answer: "",
+    services: [],
+    pages: "",
+    price: "",
+  });
+  const [question2, setQuestion2] = useState({
+    answer: "",
+    services: [],
+    price: "",
+  });
+  const [question3, setQuestion3] = useState({
+    answer: "",
+    services: [],
+    price: "",
+  });
 
-  function editProspect() {
-    const prospectData = JSON.stringify({
-      name: name,
-      company: company,
-      serviceType: serviceType,
-      email: email,
-      phoneNumber: phoneNumber,
-    });
-    api
-      .patch(`/prospects/${prospectId}`, prospectData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-      })
-      .then((res) => {
-        toggleShowEditModal();
-        refreshProspects();
-      });
-  }
+  const [question4, setQuestion4] = useState("");
+  const [question5, setQuestion5] = useState("");
 
   useEffect(() => {
     api
@@ -43,11 +42,18 @@ function InfoSection({
       .then((res) => {
         const prospect = res.data.prospect;
         if (prospect !== null) {
-          setName(prospect.name);
-          setCompany(prospect.company);
-          setServiceType(prospect.serviceType);
+          setFullname(prospect.fullname);
           setEmail(prospect.email);
-          setPhoneNumber(prospect.phoneNumber);
+          setCountry(prospect.country);
+          setBrand(prospect.brand);
+          setPosition(prospect.position);
+          setWebsite(prospect.website);
+          setQuestion1(prospect.question1);
+          setQuestion2(prospect.question2);
+          setQuestion3(prospect.question3);
+          setQuestion4(prospect.question4);
+          setQuestion5(prospect.question5);
+          console.log(prospect);
         }
       });
   }, [show]);
@@ -57,71 +63,113 @@ function InfoSection({
       <Modal.Body>
         <Row>
           <Col sm={4}>
-            <input
-              className="form-control"
-              value={name}
-              placeholder="Name"
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
+            <label>Fullname</label>
+            <input className="form-control" value={fullname} disabled={true} />
           </Col>
           <Col sm={4}>
+            <label>Email</label>
+            <input className="form-control" value={email} disabled={true} />
+          </Col>
+
+          <Col sm={4}>
+            <label>Country</label>
+            <input className="form-control" value={country} disabled={true} />
+          </Col>
+
+          <Col className="mt-1" sm={4}>
+            <label>Brand</label>
             <input
               className="form-control"
-              value={company}
-              placeholder="Company"
-              onChange={(e) => {
-                setCompany(e.target.value);
-              }}
-            />
+              value={brand}
+              disabled={true}
+            ></input>
+          </Col>
+          <Col className="mt-1" sm={4}>
+            <label>Position</label>
+            <input
+              className="form-control"
+              value={position}
+              disabled={true}
+            ></input>
+          </Col>
+          <Col className="mt-1" sm={4}>
+            <label>Website</label>
+            <input
+              className="form-control"
+              value={website}
+              disabled={true}
+            ></input>
+          </Col>
+          <hr className="mt-3"></hr>
+          <Col sm={4}>
+            <p className="text-center mb-0 mt-2">Do you require a website?</p>
+            <Row className="mt-1  ">
+              <p>Answer: {question1.answer ? "yes" : "no"}</p>
+            </Row>
+            {question1.answer && (
+              <div>
+                <Row>
+                  <p>Services: {question1.services.join(", ")}</p>
+                </Row>
+                <Row>
+                  <p>Pages: {question1.pages}</p>
+                </Row>
+                <Row>
+                  <p>Price: {question1.price}</p>
+                </Row>
+              </div>
+            )}
           </Col>
           <Col sm={4}>
-            <input
-              className="form-control"
-              value={email}
-              placeholder="Email"
-              onChange={(e) => {
-                setCompany(e.target.value);
-              }}
-            />
+            <p className="text-center mb-0 mt-2">
+              Do you require a logo and/or branding?
+            </p>
+            <Row className="mt-2  ">
+              <p>Answer: {question2.answer ? "yes" : "no"}</p>
+            </Row>
+            {question2.answer && (
+              <div>
+                <Row>
+                  <p>Services: {question2.services.join(", ")}</p>
+                </Row>
+                <Row>
+                  <p>Price: {question2.price}</p>
+                </Row>
+              </div>
+            )}
           </Col>
-          <Col sm={2} />
-          <Col className="mt-1" sm={4}>
-            <input
-              className="form-control"
-              value={phoneNumber}
-              placeholder="Phone number"
-              onChange={(e) => {
-                setPhoneNumber(e.target.value);
-              }}
-            />
+          <Col sm={4}>
+            <p className="text-center mb-0 mt-2">
+              Do you require social media marketing?
+            </p>
+            <Row className="mt-2  ">
+              <p>Answer: {question3.answer ? "yes" : "no"}</p>
+            </Row>
+            {question3.answer && (
+              <div>
+                <Row>
+                  <p>Services: {question3.services.join(", ")}</p>
+                </Row>
+                <Row>
+                  <p>Price: {question3.price}</p>
+                </Row>
+              </div>
+            )}
           </Col>
-          <Col className="mt-1" sm={4}>
-            <Form.Select
-              value={serviceType}
-              onChange={(e) => {
-                setServiceType(e.target.value);
-              }}
-            >
-              <option value="Logo design">Logo design</option>
-              <option value="Brand book">Brand book</option>
-              <option value="Social media design">Social media design</option>
-              <option value="Ip telephony">Ip telephony</option>
-              <option value="E-commerce website">E-commerce website</option>
-              <option value="CRM">CRM</option>
-              <option value="Web audit">Web audit</option>
-            </Form.Select>
+          <hr></hr>
+          <Col className="text-center" sm={6}>
+            <p>How old is your brand / business?</p>
+            <p>Answer: {question4}</p>
           </Col>
-          <Col sm={2} />
+          <Col className="text-center" sm={6}>
+            <p>When should we start?</p>
+            <p>Answer: {question5}</p>
+          </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={toggleShowEditModal}>
           Close
-        </Button>
-        <Button variant="primary" onClick={() => editProspect()}>
-          Edit Expense
         </Button>
       </Modal.Footer>
     </>

@@ -13,7 +13,7 @@ function ProspectsTable({ limit, page, search, refreshProspects }) {
 
   useEffect(() => {
     api
-      .get(`/prospects?limit=${limit}&page=${page}&name=${search}`, {
+      .get(`/prospects?limit=${limit}&page=${page}&brand=${search}`, {
         headers: { authorization: `Bearer ${localStorage.getItem("jwt")}` },
       })
       .then((res) => {
@@ -33,30 +33,27 @@ function ProspectsTable({ limit, page, search, refreshProspects }) {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Prospect Name</th>
-              <th>Prospect Company</th>
-              <th>Prospect Phone Number</th>
+              <th>Prospect Fullname</th>
               <th>Prospect Email</th>
-              <th>Prospect Service Type</th>
+              <th>Prospect Country</th>
+              <th>Prospect Brand</th>
+              <th>Prospect Position</th>
             </tr>
           </thead>
           <tbody>
             {prospects.map((prospect) => (
               <tr
-                style={{
-                  backgroundColor: prospect.status == "hot" ? "red" : null,
-                }}
                 key={prospect._id}
                 onDoubleClick={() => {
                   setShowEditModal(!showEditModal);
                   setProspectId(prospect._id);
                 }}
               >
-                <td>{prospect.name}</td>
-                <td>{prospect.company}</td>
-                <td>{prospect.phoneNumber}</td>
+                <td>{prospect.fullname}</td>
                 <td>{prospect.email}</td>
-                <td>{prospect.serviceType}</td>
+                <td>{prospect.country}</td>
+                <td>{prospect.brand}</td>
+                <td>{prospect.position}</td>
               </tr>
             ))}
           </tbody>

@@ -2,10 +2,11 @@ const Prospect = require("../models/Prospect");
 const statusCodes = require("http-status-codes");
 
 const getAllProspects = async (req, res) => {
-  const { sort, name } = req.query;
+  const { sort, fullname, brand } = req.query;
   const filtersObject = {};
 
-  if (name) filtersObject.name = { $regex: name, $options: "i" };
+  if (fullname) filtersObject.fullname = { $regex: fullname, $options: "i" };
+  if (brand) filtersObject.brand = { $regex: brand, $options: "i" };
 
   let result = Prospect.find(filtersObject);
 
@@ -34,13 +35,6 @@ const getProspect = async (req, res) => {
 
 const createProspect = async (req, res) => {
   let prospectData = {};
-
-  if (req.headers.authorization == process.env.API_KEY) {
-    prospectData = { ...req.body, status: "hot" };
-  } else {
-    prospectData = { ...req.body };
-  }
-
   const prospect = await Prospect.create(prospectData);
   res.status(statusCodes.OK).json({ prospect });
 };

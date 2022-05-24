@@ -30,13 +30,13 @@ function Prospects(props) {
 
   useEffect(() => {
     api
-      .get("/prospects", {
+      .get(`/prospects`, {
         headers: { authorization: `Bearer ${localStorage.getItem("jwt")}` },
       })
       .then((res) => {
         setCustomersNumber(res.data.count);
       });
-  }, []);
+  }, [search]);
 
   return (
     <>
