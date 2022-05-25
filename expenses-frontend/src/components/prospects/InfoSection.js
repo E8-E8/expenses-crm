@@ -14,6 +14,7 @@ function InfoSection({
   const [position, setPosition] = useState("");
   const [website, setWebsite] = useState("");
   const [country, setCountry] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [question1, setQuestion1] = useState({
     answer: "",
     services: [],
@@ -53,6 +54,7 @@ function InfoSection({
           setQuestion3(prospect.question3);
           setQuestion4(prospect.question4);
           setQuestion5(prospect.question5);
+          setPhoneNumber(prospect.phoneNumber);
           console.log(prospect);
         }
       });
@@ -62,18 +64,26 @@ function InfoSection({
     <>
       <Modal.Body>
         <Row>
-          <Col sm={4}>
+          <Col sm={3}>
             <label>Fullname</label>
             <input className="form-control" value={fullname} disabled={true} />
           </Col>
-          <Col sm={4}>
+          <Col sm={3}>
             <label>Email</label>
             <input className="form-control" value={email} disabled={true} />
           </Col>
 
-          <Col sm={4}>
+          <Col sm={3}>
             <label>Country</label>
             <input className="form-control" value={country} disabled={true} />
+          </Col>
+          <Col sm={3}>
+            <label>Phone number</label>
+            <input
+              className="form-control"
+              value={phoneNumber}
+              disabled={true}
+            />
           </Col>
 
           <Col className="mt-1" sm={4}>
