@@ -4,6 +4,7 @@ const ProspectSchema = new mongoose.Schema(
   {
     phoneNumber: {
       type: String,
+      default: "did not answer",
     },
     brand: {
       type: String,
