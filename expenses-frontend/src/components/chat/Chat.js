@@ -82,6 +82,9 @@ function Chat() {
                     <div className="chat-about">
                       <h6 className="m-b-0">
                         {localStorage.getItem("userName")}
+                        <Button href="/expenses" variant="warning ms-5">
+                          Go Back
+                        </Button>
                       </h6>
                     </div>
                   </div>

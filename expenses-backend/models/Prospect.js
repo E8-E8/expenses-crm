@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const ProspectSchema = new mongoose.Schema(
   {
+    phoneNumber: {
+      type: String,
+    },
     brand: {
       type: String,
       default: "did not answer",
@@ -26,6 +29,7 @@ const ProspectSchema = new mongoose.Schema(
     email: {
       type: String,
       default: "did not answer",
+      unique: true,
     },
 
     question1: {
