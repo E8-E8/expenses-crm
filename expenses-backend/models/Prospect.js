@@ -29,7 +29,7 @@ const ProspectSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      default: "did not answer",
+      required: true,
       unique: true,
     },
 
